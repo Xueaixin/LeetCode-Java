@@ -1,5 +1,7 @@
 package com.objects;
 
+import com.objects.utils.ListNode;
+
 import java.util.*;
 
 public class Solution {
@@ -530,5 +532,63 @@ public class Solution {
             res.append(list.get(i));
         }
         return res.toString();
+    }
+
+    // 523. 连续的子数组和
+    public boolean checkSubarraySum(int[] nums, int k) {
+        int n = nums.length;
+        if(n < 2) {
+            return false;
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        int sum = 0;
+        for(int i = 0; i < n; i++) {
+            sum += nums[i];
+            int reminder = sum % k;
+            System.out.println("sum====" + sum);
+            System.out.println("reminder====" + reminder);
+
+            if(!map.containsKey(reminder)) {
+                map.put(reminder, i);
+                System.out.println(map.get(reminder));
+            }
+            else {
+//                System.out.println(map.get(reminder));
+                if(i - map.get(reminder) > 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // 160. 相交链表
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int lenA = getLen(headA), lenB = getLen(headB);
+        ListNode tempA = lenA > lenB ? headA : headB;
+        ListNode tempB = lenA <= lenB ? headA : headB;
+        int l = lenA > lenB ? lenA - lenB : lenB - lenA;
+        int step = 0;
+        while (tempA != null && tempB != null) {
+            if(tempA == tempB && tempA != null) {
+                return tempA;
+            }
+            if(step >= l) {
+                tempB = tempB.next;
+            }
+            step++;
+            tempA = tempA.next;
+        }
+        return null;
+    }
+
+    int getLen(ListNode head) {
+        int len = 0;
+        while (head != null) {
+            len++;
+            head = head.next;
+        }
+        return len;
     }
 }
