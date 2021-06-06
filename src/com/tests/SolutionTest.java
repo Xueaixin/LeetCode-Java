@@ -157,4 +157,10 @@ class SolutionTest {
         ListNode node = solution.getIntersectionNode(headA, headB);
         System.out.println(node);
     }
+
+    @Test
+    void findMaxLength() {
+        int[] nums = {0, 1, 0};
+        System.out.println(solution.findMaxLength(nums));
+    }
 }

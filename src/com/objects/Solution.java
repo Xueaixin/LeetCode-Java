@@ -562,7 +562,7 @@ public class Solution {
         }
         return false;
     }
-
+    
     // 160. 相交链表
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         int lenA = getLen(headA), lenB = getLen(headB);
@@ -590,5 +590,28 @@ public class Solution {
             head = head.next;
         }
         return len;
+    }
+
+    // 525. 连续数组
+    public int findMaxLength(int[] nums) {
+        int max = 0;
+        int diff = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] == 0) {
+                diff--;
+            }
+            else {
+                diff++;
+            }
+            if(map.containsKey(diff)) {
+                max = Math.max(max, i - map.get(diff));
+            }
+            else {
+                map.put(diff, i);
+            }
+        }
+        return max;
     }
 }
