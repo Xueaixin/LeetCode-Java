@@ -562,7 +562,7 @@ public class Solution {
         }
         return false;
     }
-    
+
     // 160. 相交链表
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         int lenA = getLen(headA), lenB = getLen(headB);
@@ -613,5 +613,24 @@ public class Solution {
             }
         }
         return max;
+    }
+
+    // 494. 目标和
+    public int findTargetSumWays(int[] nums, int target) {
+        return findTargetSumWays(nums, 0, 0, target);
+    }
+
+    int findTargetSumWays(int[] nums, int i, int sum, int target) {
+        if(i >= nums.length) {
+            if(sum == target) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        int a = findTargetSumWays(nums, i + 1, sum + nums[i], target);
+        int b = findTargetSumWays(nums, i + 1, sum - nums[i], target);
+        return a + b;
     }
 }

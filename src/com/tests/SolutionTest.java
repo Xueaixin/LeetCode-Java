@@ -163,4 +163,10 @@ class SolutionTest {
         int[] nums = {0, 1, 0};
         System.out.println(solution.findMaxLength(nums));
     }
+
+    @Test
+    void findTargetSumWays() {
+        int[] nums = {1};
+        System.out.println(solution.findTargetSumWays(nums, 1));
+    }
 }
