@@ -633,4 +633,24 @@ public class Solution {
         int b = findTargetSumWays(nums, i + 1, sum - nums[i], target);
         return a + b;
     }
+
+    // 496. 下一个更大元素I
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        int[] res = new int[n];
+        Arrays.fill(res, -1);
+        for(int i = 0; i < nums1.length; i++) {
+            boolean isFound = false;
+            for(int j = 0; j < nums2.length; j++) {
+                if(nums1[i] == nums2[j]) {
+                    isFound = true;
+                }
+                if(isFound && nums1[i] < nums2[j]) {
+                    res[i] = nums2[j];
+                    break;
+                }
+            }
+        }
+        return res;
+    }
 }

@@ -124,14 +124,6 @@ class SolutionTest {
     }
 
     @Test
-    void test() {
-        String str = "gr";
-        String res = String.format("%-5s", str.charAt(0));
-        res = res.replace(' ', '1');
-        System.out.println(res);
-    }
-
-    @Test
     void largestNumber() {
 //        int[] nums = {3, 30, 34, 5, 9};
         int[] nums = {0, 0};
@@ -168,5 +160,20 @@ class SolutionTest {
     void findTargetSumWays() {
         int[] nums = {1};
         System.out.println(solution.findTargetSumWays(nums, 1));
+    }
+
+    @Test
+    void nextGreaterElement() {
+        int[] nums1 = {4, 1, 2};
+        int[] nums2 = {1, 3, 4, 2};
+        System.out.println(Arrays.toString(solution.nextGreaterElement(nums1, nums2)));
+    }
+
+    @Test
+    void test() {
+        String str = "gr";
+        String res = String.format("%-5s", str.charAt(0));
+        res = res.replace(' ', '1');
+        System.out.println(res);
     }
 }

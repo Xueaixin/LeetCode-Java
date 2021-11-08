@@ -17,7 +17,9 @@ class SortTest {
     void quickSort() {
 //        int[] array = {6, 11, 8, 2, 9, 4, 1, 5, 7, 10, 3};
         int[] array = {6, 8, 8, 2, 6, 4, 9, 5, 7};
+        System.out.println(Arrays.toString(array));
         sort.quickSort(array, 0, array.length - 1);
+        System.out.println(Arrays.toString(array));
     }
 
     @Test
