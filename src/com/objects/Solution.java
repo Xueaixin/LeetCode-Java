@@ -641,16 +641,39 @@ public class Solution {
         Arrays.fill(res, -1);
         for(int i = 0; i < nums1.length; i++) {
             boolean isFound = false;
-            for(int j = 0; j < nums2.length; j++) {
-                if(nums1[i] == nums2[j]) {
+            for(int k : nums2) {
+                if(nums1[i] == k) {
                     isFound = true;
                 }
-                if(isFound && nums1[i] < nums2[j]) {
-                    res[i] = nums2[j];
+                if(isFound && nums1[i] < k) {
+                    res[i] = k;
                     break;
                 }
             }
         }
         return res;
+    }
+
+    // 299. 猜数字游戏
+    public String getHint(String secret, String guess) {
+        int x = 0;
+        int y = 0;
+        int[][] record = new int[2][10];
+        int n = secret.length();
+        for(int i = 0; i < n; i++) {
+            char c1 = secret.charAt(i);
+            char c2 = guess.charAt(i);
+            if(c1 == c2) {
+                x++;
+            }
+            else {
+                record[0][c1 - '0']++;
+                record[1][c2 - '0']++;
+            }
+        }
+        for(int i = 0; i < 10; i++) {
+            y += Math.min(record[0][i], record[1][i]);
+        }
+        return x + "A" + y + "B";
     }
 }

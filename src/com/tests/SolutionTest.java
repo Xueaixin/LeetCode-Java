@@ -170,6 +170,13 @@ class SolutionTest {
     }
 
     @Test
+    void getHint() {
+        String secret = "1123";
+        String guess = "0111";
+        System.out.println(solution.getHint(secret, guess));
+    }
+
+    @Test
     void test() {
         String str = "gr";
         String res = String.format("%-5s", str.charAt(0));
