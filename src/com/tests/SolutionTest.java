@@ -183,4 +183,12 @@ class SolutionTest {
         res = res.replace(' ', '1');
         System.out.println(res);
     }
+
+    @Test
+    void convert() {
+        String s1 = "PAYPALISHIRING";
+        String s = "A";
+        int numRows = 1;
+        System.out.println(solution.convert(s, numRows));
+    }
 }

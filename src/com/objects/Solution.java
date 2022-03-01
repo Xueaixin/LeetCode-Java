@@ -676,4 +676,34 @@ public class Solution {
         }
         return x + "A" + y + "B";
     }
+
+    // 6. Z字形变换
+    public String convert(String s, int numRows) {
+        if(numRows == 1) {
+            return s;
+        }
+        StringBuilder res = new StringBuilder();
+        int len = s.length();
+        int step = numRows * 2 - 2;
+        for(int i = 0; i < numRows; i++) {
+            int index_1 = i;
+            int index_2 = step - i;
+            while (index_1 < len || index_2 < len) {
+                if(i == 0 || i == numRows - 1) {
+                    res.append(s.charAt(index_1));
+                }
+                else {
+                    if(index_1 < len) {
+                        res.append(s.charAt(index_1));
+                    }
+                    if(index_2 < len) {
+                        res.append(s.charAt(index_2));
+                    }
+                }
+                index_1 += step;
+                index_2 += step;
+            }
+        }
+        return res.toString();
+    }
 }
