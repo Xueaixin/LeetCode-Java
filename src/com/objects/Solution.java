@@ -6,6 +6,45 @@ import java.util.*;
 
 public class Solution {
 
+    /**
+     * 7.整数反转
+     */
+    public int reverse(int x) {
+        boolean isPositive = x >= 0;
+        long xx = Math.abs((long)x);
+        StringBuilder stringBuilder = new StringBuilder(String.valueOf(xx));
+        String reverse = stringBuilder.reverse().toString();
+        if (isPositive && Long.parseLong(reverse) > (long)Integer.MAX_VALUE) {
+            return 0;
+        }
+        if (!isPositive && Long.parseLong(reverse) > Math.abs((long)Integer.MIN_VALUE)) {
+            return 0;
+        }
+        return isPositive ? Integer.parseInt(reverse) : -Integer.parseInt(reverse);
+    }
+
+    /**
+     * 1684.统计一致字符串的数目
+     * @return res
+     */
+    public int countConsistentStrings(String allowed, String[] words) {
+        int res = 0;
+        boolean isFit = true;
+        for (String word : words) {
+            for (int i = 0; i < word.length(); i++) {
+                if (allowed.indexOf(word.charAt(i)) < 0) {
+                    isFit = false;
+                    continue;
+                }
+            }
+            if (isFit) {
+                res++;
+            }
+            isFit = true;
+        }
+        return res;
+    }
+
     //605. 种花问题
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
         int len = flowerbed.length;

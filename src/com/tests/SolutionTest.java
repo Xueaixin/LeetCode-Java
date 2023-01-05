@@ -21,6 +21,20 @@ class SolutionTest {
     }
 
     @Test
+    void reverse() {
+        System.out.println(solution.reverse(-2147483648));
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(Integer.MIN_VALUE);
+    }
+
+    @Test
+    void countConsistentStrings() {
+        String allowed = "ab";
+        String[] words = {"ad", "bd", "aaab", "baa", "badab"};
+        System.out.println(solution.countConsistentStrings(allowed, words));
+    }
+
+    @Test
     void canPlaceFlowers() {
         int[] flowerbed = {0, 0, 1, 0, 1};
         int n = 1;
