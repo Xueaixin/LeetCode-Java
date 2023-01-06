@@ -3,6 +3,8 @@ package com.tests;
 import com.objects.Solution;
 import com.objects.utils.ListNode;
 import com.objects.utils.OperateList;
+import com.objects.utils.OperateTree;
+import com.objects.utils.TreeNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +20,23 @@ class SolutionTest {
     @BeforeEach
     void setUp() {
         solution = new Solution();
+    }
+
+    @Test
+    void demo() {
+        OperateTree operateTree = new OperateTree();
+        TreeNode root = operateTree.restoreTree(new Integer[]{1, null, 2, 2});
+//        ArrayList<Integer> res = new ArrayList<>();
+//        operateTree.inorderTraversal(res, root);
+        System.out.println(Arrays.toString(solution.findMode(root)));
+    }
+
+    @Test
+    void findMode() {
+        OperateTree operateTree = new OperateTree();
+//        TreeNode root = operateTree.restoreTree(new Integer[]{1, null, 2, 2});
+        TreeNode root = operateTree.restoreTree(new Integer[]{0});
+        System.out.println(Arrays.toString(solution.findMode(root)));
     }
 
     @Test
@@ -193,14 +212,6 @@ class SolutionTest {
         String secret = "1123";
         String guess = "0111";
         System.out.println(solution.getHint(secret, guess));
-    }
-
-    @Test
-    void test() {
-        String str = "gr";
-        String res = String.format("%-5s", str.charAt(0));
-        res = res.replace(' ', '1');
-        System.out.println(res);
     }
 
     @Test
