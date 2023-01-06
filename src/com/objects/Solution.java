@@ -7,17 +7,36 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 2180. 统计各位数字之和为偶数的整数个数
+     */
+    public int countEven(int num) {
+        int res = 0;
+        for (int i = 1; i <= num; i++) {
+            int n = i;
+            int sum = 0;
+            while (n > 0) {
+                sum += (n % 10);
+                n /= 10;
+            }
+            if (sum % 2 == 0) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    /**
      * 7.整数反转
      */
     public int reverse(int x) {
         boolean isPositive = x >= 0;
-        long xx = Math.abs((long)x);
+        long xx = Math.abs((long) x);
         StringBuilder stringBuilder = new StringBuilder(String.valueOf(xx));
         String reverse = stringBuilder.reverse().toString();
-        if (isPositive && Long.parseLong(reverse) > (long)Integer.MAX_VALUE) {
+        if (isPositive && Long.parseLong(reverse) > (long) Integer.MAX_VALUE) {
             return 0;
         }
-        if (!isPositive && Long.parseLong(reverse) > Math.abs((long)Integer.MIN_VALUE)) {
+        if (!isPositive && Long.parseLong(reverse) > Math.abs((long) Integer.MIN_VALUE)) {
             return 0;
         }
         return isPositive ? Integer.parseInt(reverse) : -Integer.parseInt(reverse);
@@ -25,6 +44,7 @@ public class Solution {
 
     /**
      * 1684.统计一致字符串的数目
+     *
      * @return res
      */
     public int countConsistentStrings(String allowed, String[] words) {
@@ -50,25 +70,23 @@ public class Solution {
         int len = flowerbed.length;
         int[][] dp = new int[2][flowerbed.length];
         dp[0][0] = 0;
-        if(flowerbed[0] == 0 && (len == 1 || flowerbed[1] == 0)) {
+        if (flowerbed[0] == 0 && (len == 1 || flowerbed[1] == 0)) {
             dp[1][0] = 1;
-        }
-        else {
+        } else {
             dp[1][0] = 0;
         }
-        if(n <= dp[0][0] || n <= dp[1][0]) {
+        if (n <= dp[0][0] || n <= dp[1][0]) {
             return true;
         }
-        for(int i = 1; i < len; i++) {
+        for (int i = 1; i < len; i++) {
             dp[0][i] = Math.max(dp[0][i - 1], dp[1][i - 1]);
-            if(flowerbed[i] != 1 && flowerbed[i - 1] != 1 &&
+            if (flowerbed[i] != 1 && flowerbed[i - 1] != 1 &&
                     (i == len - 1 || flowerbed[i + 1] != 1)) {
                 dp[1][i] = Math.max(dp[0][i - 1] + 1, dp[1][i - 1]);
-            }
-            else {
+            } else {
                 dp[1][i] = Math.max(dp[0][i - 1], dp[1][i - 1]);
             }
-            if(n <= dp[0][i] || n <= dp[1][i]) {
+            if (n <= dp[0][i] || n <= dp[1][i]) {
                 return true;
             }
         }
@@ -80,7 +98,7 @@ public class Solution {
     //435. 无重叠区间
     public int eraseOverlapIntervals(int[][] intervals) {
         int len = intervals.length;
-        if(len == 0) {
+        if (len == 0) {
             return 0;
         }
         Arrays.sort(intervals, new Comparator<int[]>() {
@@ -93,9 +111,9 @@ public class Solution {
         int max_num = 1;
         int[] dp = new int[len];
         Arrays.fill(dp, 1);
-        for(int i = 1; i < len; i++) {
-            for(int j = 0; j < i; j++) {
-                if(intervals[i][0] >= intervals[j][1]) {
+        for (int i = 1; i < len; i++) {
+            for (int j = 0; j < i; j++) {
+                if (intervals[i][0] >= intervals[j][1]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
@@ -117,15 +135,14 @@ public class Solution {
             K /= 10;
             pre = sum / 10;
         }
-        if(K == 0) {
+        if (K == 0) {
             while (index >= 0) {
                 int sum = A[index] + pre;
                 res.add(0, sum % 10);
                 index--;
                 pre = sum / 10;
             }
-        }
-        else {
+        } else {
             while (K != 0) {
                 int sum = K % 10 + pre;
                 res.add(0, sum % 10);
@@ -133,7 +150,7 @@ public class Solution {
                 pre = sum / 10;
             }
         }
-        if(pre > 0) {
+        if (pre > 0) {
             res.add(0, pre);
         }
         System.out.println(res);
@@ -153,12 +170,12 @@ public class Solution {
     boolean[][] partition_flag; // partition_flag[i][j]表示s[i...j]是否为回文串
 
     public void partitionDfs(String s, int i) {
-        if(i == s.length()) {
+        if (i == s.length()) {
             partition_result.add(new ArrayList<>(partition_ans));
             return;
         }
-        for(int j = i; j < s.length(); j++) {
-            if(partition_flag[i][j]) {
+        for (int j = i; j < s.length(); j++) {
+            if (partition_flag[i][j]) {
                 partition_ans.add(s.substring(i, j + 1));
                 partitionDfs(s, j + 1);
                 partition_ans.remove(partition_ans.size() - 1);
@@ -169,11 +186,11 @@ public class Solution {
     public List<List<String>> partition(String s) {
         int n = s.length();
         partition_flag = new boolean[n][n];
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             Arrays.fill(partition_flag[i], true);
         }
-        for(int i = n - 1; i >= 0; i--) {
-            for(int j = i + 1; j < n; j++) {
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
                 partition_flag[i][j] = partition_flag[i + 1][j - 1] && (s.charAt(i) == s.charAt(j));
             }
         }
@@ -186,21 +203,20 @@ public class Solution {
         int n = s.length();
         int[] dp = new int[n];
         boolean[][] f = new boolean[n][n];
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             Arrays.fill(f[i], true);
         }
-        for(int i = n - 1; i >= 0; i--) {
-            for(int j = i + 1; j < n; j++) {
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
                 f[i][j] = f[i + 1][j - 1] && (s.charAt(i) == s.charAt(j));
             }
         }
-        for(int i = 0; i < n; i++) {
-            if(f[0][i]) {
+        for (int i = 0; i < n; i++) {
+            if (f[0][i]) {
                 dp[i] = 0;
-            }
-            else {
-                for(int j = 0; j < i; j++) {
-                    if(f[j + 1][i]) {
+            } else {
+                for (int j = 0; j < i; j++) {
+                    if (f[j + 1][i]) {
                         dp[i] = Math.min(dp[i], dp[j] + 1);
                     }
                 }
@@ -217,19 +233,19 @@ public class Solution {
         Stack<Integer> number = new Stack<>();
         Stack<Character> operator = new Stack<>();
         String temp_s = "";
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             char c = str.charAt(i);
-            if(valueOfChar(c) == 3) {
+            if (valueOfChar(c) == 3) {
                 temp_s = temp_s + c;
             }
-            if(valueOfChar(c) < 3 || i == n - 1) {
+            if (valueOfChar(c) < 3 || i == n - 1) {
                 int num = Integer.parseInt(temp_s);
                 temp_s = "";
                 while ((!operator.empty()) && valueOfChar(c) <= valueOfChar(operator.peek())) {
                     num = calculator(number.pop(), num, operator.pop());
                 }
                 number.push(num);
-                if(i < n - 1) {
+                if (i < n - 1) {
                     operator.push(c);
                 }
             }
@@ -254,13 +270,11 @@ public class Solution {
     }
 
     public int valueOfChar(char c) {
-        if(c == '+' || c == '-') {
+        if (c == '+' || c == '-') {
             return 1;
-        }
-        else if(c == '*' || c == '/') {
+        } else if (c == '*' || c == '/') {
             return 2;
-        }
-        else if(c >= '0' && c <= '9') {
+        } else if (c >= '0' && c <= '9') {
             return 3;
         }
         return Integer.MAX_VALUE;
@@ -273,16 +287,15 @@ public class Solution {
         Stack<Integer> number = new Stack<>();
         Stack<Character> operator = new Stack<>();
         String temp_str = "";
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             char curr_char = str.charAt(i);
-            if(valueOfChar(curr_char) == 3) {
+            if (valueOfChar(curr_char) == 3) {
                 temp_str = temp_str + curr_char;
             }
-            if(curr_char == '(') {
+            if (curr_char == '(') {
                 operator.push(curr_char);
-            }
-            else if(curr_char == ')') {
-                if(temp_str != "") {
+            } else if (curr_char == ')') {
+                if (temp_str != "") {
                     int curr_num = Integer.parseInt(temp_str);
                     temp_str = "";
                     number.push(curr_num);
@@ -293,15 +306,13 @@ public class Solution {
                     number.push(calculator(a, b, operator.pop()));
                 }
                 operator.pop();
-            }
-            else if(valueOfChar(curr_char) < 3 || i == n - 1) {
-                if(temp_str != "") {
+            } else if (valueOfChar(curr_char) < 3 || i == n - 1) {
+                if (temp_str != "") {
                     int curr_num = Integer.parseInt(temp_str);
                     temp_str = "";
                     number.push(curr_num);
-                }
-                else {
-                    if(curr_char == '-' && (number.empty() || (!operator.empty() && operator.peek() == '('))) {
+                } else {
+                    if (curr_char == '-' && (number.empty() || (!operator.empty() && operator.peek() == '('))) {
                         number.push(0);
                     }
                 }
@@ -310,7 +321,7 @@ public class Solution {
                     int a = number.pop();
                     number.push(calculator(a, b, operator.pop()));
                 }
-                if(i < n - 1) {
+                if (i < n - 1) {
                     operator.push(curr_char);
                 }
             }
@@ -333,11 +344,11 @@ public class Solution {
 //        System.out.println(Arrays.toString(strArr));
         int n = strArr.length;
         Stack<String> node = new Stack<>();
-        for(String s : strArr) {
-            if(s.equals("#")) {
+        for (String s : strArr) {
+            if (s.equals("#")) {
                 while (!node.empty() && node.peek().equals("#")) {
                     node.pop();
-                    if(node.empty()) {
+                    if (node.empty()) {
                         return false;
                     }
                     node.pop();
@@ -356,17 +367,15 @@ public class Solution {
         int slots = 1;
         int i = 0;
         while (i < n) {
-            if(slots == 0) {
+            if (slots == 0) {
                 return false;
             }
-            if(preorder.charAt(i) == '#') {
+            if (preorder.charAt(i) == '#') {
                 i++;
                 slots--;
-            }
-            else if(preorder.charAt(i) == ',') {
+            } else if (preorder.charAt(i) == ',') {
                 i++;
-            }
-            else {
+            } else {
                 while (i < n && preorder.charAt(i) != ',') {
                     i++;
                 }
@@ -381,31 +390,31 @@ public class Solution {
         List<Integer> result = new ArrayList<>();
         int m = matrix.length;
         int n = matrix[0].length;
-        for(int i = 0; i < (m + 1) / 2; i++) {
+        for (int i = 0; i < (m + 1) / 2; i++) {
             System.out.println("# " + i + " ==================");
-            for(int j = i; j < n - i; j++) {
-                if(result.size() == m * n) {
+            for (int j = i; j < n - i; j++) {
+                if (result.size() == m * n) {
                     return result;
                 }
                 System.out.println("第一 = " + matrix[i][j]);
                 result.add(matrix[i][j]);
             }
-            for(int j = i + 1; j < m - i - 1; j++) {
-                if(result.size() == m * n) {
+            for (int j = i + 1; j < m - i - 1; j++) {
+                if (result.size() == m * n) {
                     return result;
                 }
                 System.out.println("第二 = " + matrix[j][n - i - 1]);
                 result.add(matrix[j][n - i - 1]);
             }
-            for(int j = n - 1 - i; j > i; j--) {
-                if(result.size() == m * n) {
+            for (int j = n - 1 - i; j > i; j--) {
+                if (result.size() == m * n) {
                     return result;
                 }
                 System.out.println("第三 = " + matrix[m - 1 - i][j]);
                 result.add(matrix[m - 1 - i][j]);
             }
-            for(int j = m - 1 - i; j > i; j--) {
-                if(result.size() == m * n) {
+            for (int j = m - 1 - i; j > i; j--) {
+                if (result.size() == m * n) {
                     return result;
                 }
                 System.out.println("第四 = " + matrix[j][i]);
@@ -419,24 +428,23 @@ public class Solution {
     int numDistinct_result = 0;
 
     public int numDistinct(String s, String t) {
-        if(t.length() == 0) {
+        if (t.length() == 0) {
             return 1;
         }
-        if(s.length() < t.length()) {
+        if (s.length() < t.length()) {
             return 0;
         }
         int m = s.length();
         int n = t.length();
         int[][] dp = new int[m + 1][n + 1];
-        for(int i = 0; i <= m; i++) {
+        for (int i = 0; i <= m; i++) {
             dp[i][n] = 1;
         }
-        for(int i = m - 1; i >= 0; i--) {
-            for(int j = n - 1; j >= 0; j--) {
-                if(s.charAt(i) == t.charAt(j)) {
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                if (s.charAt(i) == t.charAt(j)) {
                     dp[i][j] = dp[i + 1][j + 1] + dp[i + 1][j];
-                }
-                else {
+                } else {
                     dp[i][j] = dp[i + 1][j];
                 }
             }
@@ -446,18 +454,18 @@ public class Solution {
 
     // 超时了
     public void numDistinct_dfs(int s_index, int t_index, String s, String t) {
-        if(t_index == t.length()) {
+        if (t_index == t.length()) {
             numDistinct_result++;
             return;
         }
-        for(int s_i = s_index; s_i < s.length(); s_i++) {
+        for (int s_i = s_index; s_i < s.length(); s_i++) {
             while ((s.length() - s_i >= t.length() - t_index) && s.charAt(s_i) != t.charAt(t_index)) {
                 s_i++;
             }
-            if(s.length() - s_i < t.length() - t_index) {
+            if (s.length() - s_i < t.length() - t_index) {
                 return;
             }
-            if(s.charAt(s_i) == t.charAt(t_index)) {
+            if (s.charAt(s_i) == t.charAt(t_index)) {
                 numDistinct_dfs(s_i + 1, t_index + 1, s, t);
             }
         }
@@ -468,40 +476,40 @@ public class Solution {
         int m = matrix.length;
         int n = matrix[0].length;
         boolean raw0Flag = false, col0Flag = false;
-        for(int[] ints : matrix) {
-            if(ints[0] == 0) {
+        for (int[] ints : matrix) {
+            if (ints[0] == 0) {
                 col0Flag = true;
                 break;
             }
         }
-        for(int j = 0; j < n; j++) {
-            if(matrix[0][j] == 0) {
+        for (int j = 0; j < n; j++) {
+            if (matrix[0][j] == 0) {
                 raw0Flag = true;
                 break;
             }
         }
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if(matrix[i][j] == 0) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
                     matrix[i][0] = 0;
                     matrix[0][j] = 0;
                 }
             }
         }
-        for(int i = 1; i < m; i++) {
-            for(int j = 1; j < n; j++) {
-                if(matrix[0][j] == 0 || matrix[i][0] == 0) {
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[0][j] == 0 || matrix[i][0] == 0) {
                     matrix[i][j] = 0;
                 }
             }
         }
-        if(col0Flag) {
-            for(int i = 0; i < m; i++) {
+        if (col0Flag) {
+            for (int i = 0; i < m; i++) {
                 matrix[i][0] = 0;
             }
         }
-        if(raw0Flag) {
-            for(int j = 0; j < n; j++) {
+        if (raw0Flag) {
+            for (int j = 0; j < n; j++) {
                 matrix[0][j] = 0;
             }
         }
@@ -510,8 +518,8 @@ public class Solution {
     //
     public int hammingWeight(int n) {
         int res = 0;
-        for(int i = 0; i < 32; i++) {
-            if((n & (1 << i)) != 0) {
+        for (int i = 0; i < 32; i++) {
+            if ((n & (1 << i)) != 0) {
                 res++;
             }
         }
@@ -523,15 +531,15 @@ public class Solution {
         int[] result = new int[n];
         result[0] = 1;
         int p2 = 0, p3 = 0, p5 = 0;
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             result[i] = getMin(result, p2, p3, p5);
-            if(result[i] == result[p2] * 2) {
+            if (result[i] == result[p2] * 2) {
                 p2++;
             }
-            if(result[i] == result[p3] * 3) {
+            if (result[i] == result[p3] * 3) {
                 p3++;
             }
-            if(result[i] == result[p5] * 5) {
+            if (result[i] == result[p5] * 5) {
                 p5++;
             }
         }
@@ -550,13 +558,13 @@ public class Solution {
         int n = nums.length;
         List<String> list = new ArrayList<>();
         int sum = 0;
-        for(int i = 0; i < n; i++) {
-            if(sum == 0) {
+        for (int i = 0; i < n; i++) {
+            if (sum == 0) {
                 sum += nums[i];
             }
             list.add(String.valueOf(nums[i]));
         }
-        if(sum == 0) {
+        if (sum == 0) {
             return "0";
         }
         list.sort(new Comparator<String>() {
@@ -567,7 +575,7 @@ public class Solution {
             }
         });
         StringBuilder res = new StringBuilder();
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             res.append(list.get(i));
         }
         return res.toString();
@@ -576,25 +584,24 @@ public class Solution {
     // 523. 连续的子数组和
     public boolean checkSubarraySum(int[] nums, int k) {
         int n = nums.length;
-        if(n < 2) {
+        if (n < 2) {
             return false;
         }
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, -1);
         int sum = 0;
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             sum += nums[i];
             int reminder = sum % k;
             System.out.println("sum====" + sum);
             System.out.println("reminder====" + reminder);
 
-            if(!map.containsKey(reminder)) {
+            if (!map.containsKey(reminder)) {
                 map.put(reminder, i);
                 System.out.println(map.get(reminder));
-            }
-            else {
+            } else {
 //                System.out.println(map.get(reminder));
-                if(i - map.get(reminder) > 1) {
+                if (i - map.get(reminder) > 1) {
                     return true;
                 }
             }
@@ -610,10 +617,10 @@ public class Solution {
         int l = lenA > lenB ? lenA - lenB : lenB - lenA;
         int step = 0;
         while (tempA != null && tempB != null) {
-            if(tempA == tempB && tempA != null) {
+            if (tempA == tempB && tempA != null) {
                 return tempA;
             }
-            if(step >= l) {
+            if (step >= l) {
                 tempB = tempB.next;
             }
             step++;
@@ -637,17 +644,15 @@ public class Solution {
         int diff = 0;
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, -1);
-        for(int i = 0; i < nums.length; i++) {
-            if(nums[i] == 0) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
                 diff--;
-            }
-            else {
+            } else {
                 diff++;
             }
-            if(map.containsKey(diff)) {
+            if (map.containsKey(diff)) {
                 max = Math.max(max, i - map.get(diff));
-            }
-            else {
+            } else {
                 map.put(diff, i);
             }
         }
@@ -660,11 +665,10 @@ public class Solution {
     }
 
     int findTargetSumWays(int[] nums, int i, int sum, int target) {
-        if(i >= nums.length) {
-            if(sum == target) {
+        if (i >= nums.length) {
+            if (sum == target) {
                 return 1;
-            }
-            else {
+            } else {
                 return 0;
             }
         }
@@ -678,13 +682,13 @@ public class Solution {
         int n = nums1.length;
         int[] res = new int[n];
         Arrays.fill(res, -1);
-        for(int i = 0; i < nums1.length; i++) {
+        for (int i = 0; i < nums1.length; i++) {
             boolean isFound = false;
-            for(int k : nums2) {
-                if(nums1[i] == k) {
+            for (int k : nums2) {
+                if (nums1[i] == k) {
                     isFound = true;
                 }
-                if(isFound && nums1[i] < k) {
+                if (isFound && nums1[i] < k) {
                     res[i] = k;
                     break;
                 }
@@ -699,18 +703,17 @@ public class Solution {
         int y = 0;
         int[][] record = new int[2][10];
         int n = secret.length();
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             char c1 = secret.charAt(i);
             char c2 = guess.charAt(i);
-            if(c1 == c2) {
+            if (c1 == c2) {
                 x++;
-            }
-            else {
+            } else {
                 record[0][c1 - '0']++;
                 record[1][c2 - '0']++;
             }
         }
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             y += Math.min(record[0][i], record[1][i]);
         }
         return x + "A" + y + "B";
@@ -718,24 +721,23 @@ public class Solution {
 
     // 6. Z字形变换
     public String convert(String s, int numRows) {
-        if(numRows == 1) {
+        if (numRows == 1) {
             return s;
         }
         StringBuilder res = new StringBuilder();
         int len = s.length();
         int step = numRows * 2 - 2;
-        for(int i = 0; i < numRows; i++) {
+        for (int i = 0; i < numRows; i++) {
             int index_1 = i;
             int index_2 = step - i;
             while (index_1 < len || index_2 < len) {
-                if(i == 0 || i == numRows - 1) {
+                if (i == 0 || i == numRows - 1) {
                     res.append(s.charAt(index_1));
-                }
-                else {
-                    if(index_1 < len) {
+                } else {
+                    if (index_1 < len) {
                         res.append(s.charAt(index_1));
                     }
-                    if(index_2 < len) {
+                    if (index_2 < len) {
                         res.append(s.charAt(index_2));
                     }
                 }

@@ -21,6 +21,11 @@ class SolutionTest {
     }
 
     @Test
+    void countEven() {
+        System.out.println(solution.countEven(30));
+    }
+
+    @Test
     void reverse() {
         System.out.println(solution.reverse(-2147483648));
         System.out.println(Integer.MAX_VALUE);
