@@ -8,7 +8,6 @@ import com.objects.utils.TreeNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,6 +28,11 @@ class SolutionTest {
 //        ArrayList<Integer> res = new ArrayList<>();
 //        operateTree.inorderTraversal(res, root);
         System.out.println(Arrays.toString(solution.findMode(root)));
+    }
+
+    @Test
+    void rearrangeCharacters() {
+        System.out.println(solution.rearrangeCharacters("abbaccaddaeea", "aaaaa"));
     }
 
     @Test
@@ -80,7 +84,6 @@ class SolutionTest {
     void addToArrayForm() {
         Integer[] array1 = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         int[] A1 = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
-        ArrayList<Integer> arrayList = new ArrayList<>(Arrays.asList(array1));
         assertEquals(Arrays.asList(array1), solution.addToArrayForm(A1, 1));
     }
 
