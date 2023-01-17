@@ -1,11 +1,19 @@
 package com.objects;
 
+import com.objects.utils.Employee;
 import com.objects.utils.ListNode;
 import com.objects.utils.TreeNode;
 
 import java.util.*;
 
 public class Solution {
+
+    /**
+     * todo 690. 员工的重要性
+     */
+    public int getImportance(List<Employee> employees, int id) {
+        return 1;
+    }
 
     /**
      * 2287. 重排字符形成目标字符串
@@ -18,14 +26,16 @@ public class Solution {
         for (int i = 0; i < s.length(); i++) {
             if (!countOfCharinSMap.containsKey(s.charAt(i))) {
                 countOfCharinSMap.put(s.charAt(i), 1);
-            } else {
+            }
+            else {
                 countOfCharinSMap.replace(s.charAt(i), countOfCharinSMap.get(s.charAt(i)) + 1);
             }
         }
         for (int i = 0; i < target.length(); i++) {
             if (!countOfCharinTargetMap.containsKey(target.charAt(i))) {
                 countOfCharinTargetMap.put(target.charAt(i), 1);
-            } else {
+            }
+            else {
                 countOfCharinTargetMap.replace(target.charAt(i), countOfCharinTargetMap.get(target.charAt(i)) + 1);
             }
         }
@@ -53,7 +63,8 @@ public class Solution {
         inorderTraversal(res, count, root);
         if (count[1] < count[0]) {
             res.remove(res.size() - 1);
-        } else if (count[1] > count[0]) {
+        }
+        else if (count[1] > count[0]) {
             int temp = res.get(res.size() - 1);
             res.clear();
             res.add(temp);
@@ -76,13 +87,16 @@ public class Solution {
             if (res.size() == 0) {
                 res.add(root.val);
                 count[1]++;
-            } else {
+            }
+            else {
                 if (root.val == res.get(res.size() - 1)) {
                     count[1]++;
-                } else {
+                }
+                else {
                     if (count[1] < count[0]) {
                         res.remove(res.size() - 1);
-                    } else if (count[1] > count[0]) {
+                    }
+                    else if (count[1] > count[0]) {
                         int temp = res.get(res.size() - 1);
                         res.clear();
                         res.add(temp);
@@ -166,7 +180,8 @@ public class Solution {
         dp[0][0] = 0;
         if (flowerbed[0] == 0 && (len == 1 || flowerbed[1] == 0)) {
             dp[1][0] = 1;
-        } else {
+        }
+        else {
             dp[1][0] = 0;
         }
         if (n <= dp[0][0] || n <= dp[1][0]) {
@@ -177,7 +192,8 @@ public class Solution {
             if (flowerbed[i] != 1 && flowerbed[i - 1] != 1 &&
                     (i == len - 1 || flowerbed[i + 1] != 1)) {
                 dp[1][i] = Math.max(dp[0][i - 1] + 1, dp[1][i - 1]);
-            } else {
+            }
+            else {
                 dp[1][i] = Math.max(dp[0][i - 1], dp[1][i - 1]);
             }
             if (n <= dp[0][i] || n <= dp[1][i]) {
@@ -236,7 +252,8 @@ public class Solution {
                 index--;
                 pre = sum / 10;
             }
-        } else {
+        }
+        else {
             while (K != 0) {
                 int sum = K % 10 + pre;
                 res.add(0, sum % 10);
@@ -251,10 +268,64 @@ public class Solution {
         return res;
     }
 
-    // todo 959. 由斜杠划分区域
+    /**
+     * 959. 由斜杠划分区域
+     */
     public int regionsBySlashes(String[] grid) {
+        int res = 0;
         int n = grid.length;
-        return 1;
+        int[] array = new int[n * n * 2];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = i;
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                int left = 2 * (i * n + j);
+                int right = 2 * (i * n + j) + 1;
+                if (i == 0 && j == 0) {
+                    array[right] = grid[i].charAt(j) == ' ' ? array[left] : array[right];
+                }
+                else if (i == 0) {
+                    array[left] = array[left - 1];
+                    array[right] = grid[i].charAt(j) == ' ' ? array[left] : array[right];
+                }
+                else if (j == 0) {
+                    if (grid[i].charAt(j) == '\\') {
+                        array[right] = grid[i - 1].charAt(j) == '/' ? array[right - 2 * n] : array[left - 2 * n];
+                    }
+                    else {
+                        array[left] = grid[i - 1].charAt(j) == '/' ? array[right - 2 * n] : array[left - 2 * n];
+                        array[right] = grid[i].charAt(j) == ' ' ? array[left] : array[right];
+                    }
+                }
+                else {
+                    if (grid[i].charAt(j) == '\\') {
+                        array[left] = array[left - 1];
+                        array[right] = grid[i - 1].charAt(j) == '/' ? array[right - 2 * n] : array[left - 2 * n];
+                    }
+                    else {
+                        array[left] = grid[i - 1].charAt(j) == '/' ? array[right - 2 * n] : array[left - 2 * n];
+                        array[find(array, left - 1)] = find(array, left);
+                        array[right] = grid[i].charAt(j) == ' ' ? array[left] : array[right];
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == i) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    int find(int[] array, int x) {
+        if (array[x] == x) {
+            return x;
+        }
+        else {
+            return find(array, array[x]);
+        }
     }
 
     //131. 分割回文串
@@ -307,7 +378,8 @@ public class Solution {
         for (int i = 0; i < n; i++) {
             if (f[0][i]) {
                 dp[i] = 0;
-            } else {
+            }
+            else {
                 for (int j = 0; j < i; j++) {
                     if (f[j + 1][i]) {
                         dp[i] = Math.min(dp[i], dp[j] + 1);
@@ -365,9 +437,11 @@ public class Solution {
     public int valueOfChar(char c) {
         if (c == '+' || c == '-') {
             return 1;
-        } else if (c == '*' || c == '/') {
+        }
+        else if (c == '*' || c == '/') {
             return 2;
-        } else if (c >= '0' && c <= '9') {
+        }
+        else if (c >= '0' && c <= '9') {
             return 3;
         }
         return Integer.MAX_VALUE;
@@ -387,7 +461,8 @@ public class Solution {
             }
             if (curr_char == '(') {
                 operator.push(curr_char);
-            } else if (curr_char == ')') {
+            }
+            else if (curr_char == ')') {
                 if (!temp_str.equals("")) {
                     int curr_num = Integer.parseInt(temp_str);
                     temp_str = "";
@@ -399,12 +474,14 @@ public class Solution {
                     number.push(calculator(a, b, operator.pop()));
                 }
                 operator.pop();
-            } else if (valueOfChar(curr_char) < 3 || i == n - 1) {
+            }
+            else if (valueOfChar(curr_char) < 3 || i == n - 1) {
                 if (!temp_str.equals("")) {
                     int curr_num = Integer.parseInt(temp_str);
                     temp_str = "";
                     number.push(curr_num);
-                } else {
+                }
+                else {
                     if (curr_char == '-' && (number.empty() || (!operator.empty() && operator.peek() == '('))) {
                         number.push(0);
                     }
@@ -466,9 +543,11 @@ public class Solution {
             if (preorder.charAt(i) == '#') {
                 i++;
                 slots--;
-            } else if (preorder.charAt(i) == ',') {
+            }
+            else if (preorder.charAt(i) == ',') {
                 i++;
-            } else {
+            }
+            else {
                 while (i < n && preorder.charAt(i) != ',') {
                     i++;
                 }
@@ -537,7 +616,8 @@ public class Solution {
             for (int j = n - 1; j >= 0; j--) {
                 if (s.charAt(i) == t.charAt(j)) {
                     dp[i][j] = dp[i + 1][j + 1] + dp[i + 1][j];
-                } else {
+                }
+                else {
                     dp[i][j] = dp[i + 1][j];
                 }
             }
@@ -692,7 +772,8 @@ public class Solution {
             if (!map.containsKey(reminder)) {
                 map.put(reminder, i);
                 System.out.println(map.get(reminder));
-            } else {
+            }
+            else {
 //                System.out.println(map.get(reminder));
                 if (i - map.get(reminder) > 1) {
                     return true;
@@ -740,12 +821,14 @@ public class Solution {
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] == 0) {
                 diff--;
-            } else {
+            }
+            else {
                 diff++;
             }
             if (map.containsKey(diff)) {
                 max = Math.max(max, i - map.get(diff));
-            } else {
+            }
+            else {
                 map.put(diff, i);
             }
         }
@@ -761,7 +844,8 @@ public class Solution {
         if (i >= nums.length) {
             if (sum == target) {
                 return 1;
-            } else {
+            }
+            else {
                 return 0;
             }
         }
@@ -801,7 +885,8 @@ public class Solution {
             char c2 = guess.charAt(i);
             if (c1 == c2) {
                 x++;
-            } else {
+            }
+            else {
                 record[0][c1 - '0']++;
                 record[1][c2 - '0']++;
             }
@@ -826,7 +911,8 @@ public class Solution {
             while (index_1 < len || index_2 < len) {
                 if (i == 0 || i == numRows - 1) {
                     res.append(s.charAt(index_1));
-                } else {
+                }
+                else {
                     if (index_1 < len) {
                         res.append(s.charAt(index_1));
                     }

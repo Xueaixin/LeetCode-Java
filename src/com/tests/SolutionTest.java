@@ -23,11 +23,20 @@ class SolutionTest {
 
     @Test
     void demo() {
-        OperateTree operateTree = new OperateTree();
-        TreeNode root = operateTree.restoreTree(new Integer[]{1, null, 2, 2});
-//        ArrayList<Integer> res = new ArrayList<>();
-//        operateTree.inorderTraversal(res, root);
-        System.out.println(Arrays.toString(solution.findMode(root)));
+        System.out.println("\\".length());
+//        OperateTree operateTree = new OperateTree();
+//        TreeNode root = operateTree.restoreTree(new Integer[]{1, null, 2, 2});
+////        ArrayList<Integer> res = new ArrayList<>();
+////        operateTree.inorderTraversal(res, root);
+//        System.out.println(Arrays.toString(solution.findMode(root)));
+    }
+
+    @Test
+    void regionsBySlashes() {
+//        String[] s = new String[]{" /", "/ "};
+//        String[] s = new String[]{"    ", " /\\ ", " \\/ ", "    "};
+        String[] s = new String[]{"/\\", "\\/"};
+        System.out.println(solution.regionsBySlashes(s));
     }
 
     @Test
