@@ -32,6 +32,11 @@ class SolutionTest {
     }
 
     @Test
+    void getImportance() {
+//        solution.getImportance();
+    }
+
+    @Test
     void regionsBySlashes() {
 //        String[] s = new String[]{" /", "/ "};
 //        String[] s = new String[]{"    ", " /\\ ", " \\/ ", "    "};

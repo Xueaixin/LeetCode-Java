@@ -9,10 +9,24 @@ import java.util.*;
 public class Solution {
 
     /**
-     * todo 690. 员工的重要性
+     * 690. 员工的重要性
      */
     public int getImportance(List<Employee> employees, int id) {
-        return 1;
+        Map<Integer, Employee> employeeMap = new HashMap<>();
+        for (Employee employee : employees) {
+            employeeMap.put(employee.id, employee);
+        }
+        return getImportance(employeeMap, id);
+    }
+
+    int getImportance(Map<Integer, Employee> employeeMap, int id) {
+        Employee leader = employeeMap.get(id);
+        int importance = leader.importance;
+        for (int i = 0; i < leader.subordinates.size(); i++) {
+            int subordinateId = leader.subordinates.get(i);
+            importance += getImportance(employeeMap, subordinateId);
+        }
+        return importance;
     }
 
     /**
@@ -162,7 +176,6 @@ public class Solution {
             for (int i = 0; i < word.length(); i++) {
                 if (allowed.indexOf(word.charAt(i)) < 0) {
                     isFit = false;
-                    continue;
                 }
             }
             if (isFit) {
