@@ -23,6 +23,7 @@ class SolutionTest {
 
     @Test
     void demo() {
+        System.out.println(Integer.MAX_VALUE);
         System.out.println("\\".length());
 //        OperateTree operateTree = new OperateTree();
 //        TreeNode root = operateTree.restoreTree(new Integer[]{1, null, 2, 2});
@@ -32,8 +33,10 @@ class SolutionTest {
     }
 
     @Test
-    void getImportance() {
-//        solution.getImportance();
+    void countNicePairs() {
+//        int[] nums = new int[]{42, 11, 1, 97};
+        int[] nums = new int[]{13, 10, 35, 24, 76};
+        System.out.println(solution.countNicePairs(nums));
     }
 
     @Test

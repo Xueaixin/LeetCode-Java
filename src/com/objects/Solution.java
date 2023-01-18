@@ -9,6 +9,35 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 1814. 统计一个数组中好对子的数目
+     */
+    public int countNicePairs(int[] nums) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for (int num : nums) {
+            int revNum = rev(num);
+            if (!countMap.containsKey(num - revNum)) {
+                countMap.put(num - revNum, 1);
+            }
+            else {
+                countMap.replace(num - revNum, countMap.get(num - revNum) + 1);
+            }
+        }
+        long divisor = (long) (Math.pow(10, 9) + 7);
+        long res = 0;
+        for (int count : countMap.values()) {
+            long temp = (long) count * (count - 1) / 2;
+            res += temp;
+        }
+        return (int) (res % divisor);
+    }
+
+    int rev(int x) {
+        StringBuilder stringBuilder = new StringBuilder(String.valueOf(x));
+        String reverse = stringBuilder.reverse().toString();
+        return Integer.parseInt(reverse);
+    }
+
+    /**
      * 690. 员工的重要性
      */
     public int getImportance(List<Employee> employees, int id) {
