@@ -7,6 +7,35 @@ import com.objects.utils.TreeNode;
 import java.util.*;
 
 public class Solution {
+    /**
+     * 2299. 强密码检验器 II
+     * 1）使用位运算
+     */
+    public boolean strongPasswordCheckerII(String password) {
+        if (password.length() < 8) {
+            return false;
+        }
+        int flag = 0;
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (i > 0 && c == password.charAt(i - 1)) {
+                return false;
+            }
+            if (c >= 'A' && c <= 'Z') {
+                flag = flag | 8;
+            }
+            else if (c >= 'a' && c <= 'z') {
+                flag = flag | 4;
+            }
+            else if (c >= '0' && c <= '9') {
+                flag = flag | 2;
+            }
+            else if ("!@#$%^&*()-+".indexOf(c) >= 0) {
+                flag = flag | 1;
+            }
+        }
+        return flag == 15;
+    }
 
     /**
      * 1814. 统计一个数组中好对子的数目

@@ -23,13 +23,26 @@ class SolutionTest {
 
     @Test
     void demo() {
-        System.out.println(Integer.MAX_VALUE);
-        System.out.println("\\".length());
+        int a = 4;
+        int b = 4;
+        System.out.println(0b1000);
+        System.out.println(0b0100);
+        System.out.println(0b0010);
+        System.out.println(0b0001);
+//        System.out.println(Integer.MAX_VALUE);
+//        System.out.println("\\".length());
 //        OperateTree operateTree = new OperateTree();
 //        TreeNode root = operateTree.restoreTree(new Integer[]{1, null, 2, 2});
 ////        ArrayList<Integer> res = new ArrayList<>();
 ////        operateTree.inorderTraversal(res, root);
 //        System.out.println(Arrays.toString(solution.findMode(root)));
+    }
+
+    @Test
+    void strongPasswordCheckerII() {
+//        String password = "IloveLe3tcode!";
+        String password = "Me+You--IsMyDream";
+        System.out.println(solution.strongPasswordCheckerII(password));
     }
 
     @Test
