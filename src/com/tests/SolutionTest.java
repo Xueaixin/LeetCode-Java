@@ -39,6 +39,13 @@ class SolutionTest {
     }
 
     @Test
+    void decodeMessage() {
+//        String key = "eljuxhpwnyrdgtqkviszcfmabo", message = "zwx hnfx lqantp mnoeius ycgk vcnjrdb";
+        String key = "the quick brown fox jumps over the lazy dog", message = "vkbs bs t suepuv";
+        System.out.println(solution.decodeMessage(key, message));
+    }
+
+    @Test
     void strongPasswordCheckerII() {
 //        String password = "IloveLe3tcode!";
         String password = "Me+You--IsMyDream";

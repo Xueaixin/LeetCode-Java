@@ -7,6 +7,30 @@ import com.objects.utils.TreeNode;
 import java.util.*;
 
 public class Solution {
+
+    /**
+     * 2325.解密消息
+     * 1）key的mapper映射表
+     * 2）逐个替换message的字符
+     */
+    public String decodeMessage(String key, String message) {
+        Map<Character, Character> map = new HashMap<>();
+        int index = 0;
+        for (int i = 0; i < key.length(); i++) {
+            if (!map.containsKey(key.charAt(i)) && key.charAt(i) != ' ') {
+                map.put(key.charAt(i), (char) ('a' + index));
+                index++;
+            }
+        }
+        StringBuilder stringBuilder = new StringBuilder(message);
+        for (int i = 0; i < message.length(); i++) {
+            if (message.charAt(i) != ' ') {
+                stringBuilder.replace(i, i + 1, String.valueOf(map.get(message.charAt(i))));
+            }
+        }
+        return stringBuilder.toString();
+    }
+
     /**
      * 2299. 强密码检验器 II
      * 1）使用位运算
