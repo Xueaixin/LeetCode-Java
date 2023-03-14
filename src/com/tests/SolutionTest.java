@@ -8,7 +8,9 @@ import com.objects.utils.TreeNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +25,10 @@ class SolutionTest {
 
     @Test
     void demo() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
         int a = 4;
         int b = 4;
         System.out.println(0b1000);
@@ -36,6 +42,14 @@ class SolutionTest {
 ////        ArrayList<Integer> res = new ArrayList<>();
 ////        operateTree.inorderTraversal(res, root);
 //        System.out.println(Arrays.toString(solution.findMode(root)));
+    }
+
+    @Test
+    void shortestAlternatingPaths() {
+        int n = 5;
+        int[][] red_edges = new int[][]{{2, 2}, {0, 1}, {0, 3}, {0, 0}, {0, 4}, {2, 1}, {2, 0}, {1, 4}, {3, 4}};
+        int[][] blue_edges = new int[][]{{1, 3}, {0, 0}, {0, 3}, {4, 2}, {1, 0}};
+        System.out.println(Arrays.toString(solution.shortestAlternatingPaths(n, red_edges, blue_edges)));
     }
 
     @Test

@@ -7,6 +7,68 @@ import com.objects.utils.TreeNode;
 import java.util.*;
 
 public class Solution {
+    /**
+     * 1129.颜色交替的最短路径
+     */
+    public int[] shortestAlternatingPaths(int n, int[][] redEdges, int[][] blueEdges) {
+        List<Integer>[][] next = new List[2][n];
+        int[][] dist = new int[2][n];
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < n; j++) {
+                next[i][j] = new ArrayList<Integer>();
+            }
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+        }
+        for (int[] edge : redEdges) {
+            next[0][edge[0]].add(edge[1]);
+        }
+        for (int[] edge : blueEdges) {
+            next[1][edge[0]].add(edge[1]);
+        }
+        Deque<Integer> deque = new ArrayDeque<>();
+        deque.add(0);
+
+        int color = 0; // 0 is red; 1 is blue;
+        int deep = 1;
+        while (!deque.isEmpty()) {
+            int p = deque.poll();
+            System.out.println(next[color][p]);
+            for (int i = 0; i < next[color][p].size(); i++) {
+                int item = next[color][p].get(i);
+                if (dist[color][item] != Integer.MAX_VALUE) {
+                    continue;
+                }
+                dist[color][item] = deep;
+                deque.add(item);
+            }
+            deep++;
+            color = (color + 1) % 2;
+        }
+//        color = 1;
+//        deep = 1;
+//        deque.add(0);
+//        while (!deque.isEmpty()) {
+//            int p = deque.poll();
+//            for (int i = 0; i < next[color][p].size(); i++) {
+//                int item = next[color][p].get(i);
+//                if (dist[color][item] != Integer.MAX_VALUE) {
+//                    continue;
+//                }
+//                dist[color][item] = deep;
+//                deque.add(item);
+//            }
+//            deep++;
+//            color = (color + 1) % 2;
+//        }
+        int[] res = new int[n];
+        for (int i = 1; i < n; i++) {
+            res[i] = Math.min(dist[0][i], dist[1][i]);
+            if (res[i] == Integer.MAX_VALUE) {
+                res[i] = -1;
+            }
+        }
+        return res;
+    }
 
     /**
      * 2325.解密消息
