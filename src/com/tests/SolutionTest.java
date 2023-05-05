@@ -24,6 +24,12 @@ class SolutionTest {
     }
 
     @Test
+    void myAtoi() {
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(Integer.MIN_VALUE);
+    }
+
+    @Test
     void demo() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
