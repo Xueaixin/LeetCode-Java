@@ -10,6 +10,7 @@ public class Solution {
 
     /**
      * 8. 字符串转换整数 (atoi)
+     * TODO
      *
      * @param s
      * @return
@@ -20,6 +21,7 @@ public class Solution {
 
     /**
      * 1129.颜色交替的最短路径
+     * TODO
      */
     public int[] shortestAlternatingPaths(int n, int[][] redEdges, int[][] blueEdges) {
         List<Integer>[][] next = new List[2][n];
