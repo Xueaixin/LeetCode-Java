@@ -9,14 +9,52 @@ import java.util.*;
 public class Solution {
 
     /**
-     * 8. 字符串转换整数 (atoi)
-     * TODO
+     * 8.字符串转换整数 (atoi)
      *
      * @param s
      * @return
      */
     public int myAtoi(String s) {
-        return 0;
+        String str = s.trim();
+        if (str.isEmpty()) {
+            return 0;
+        }
+        if (str.charAt(0) != '+' && str.charAt(0) != '-' && (str.charAt(0) < '0' || str.charAt(0) > '9')) {
+            return 0;
+        }
+        boolean isPositive = true;
+        StringBuilder stringBuilder = new StringBuilder();
+        if (str.charAt(0) == '+' || str.charAt(0) == '-') {
+            if (str.charAt(0) == '-') {
+                isPositive = false;
+            }
+            str = str.substring(1);
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (stringBuilder.isEmpty() && str.charAt(i) == '0') {
+                continue;
+            }
+            if (str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+                stringBuilder.append(str.charAt(i));
+            } else {
+                break;
+            }
+        }
+        if (stringBuilder.isEmpty()) {
+            return 0;
+        }
+        if (stringBuilder.length() > 10) {
+            return isPositive ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        }
+        System.out.println("stringBuilder = " + stringBuilder);
+        if (stringBuilder.length() == 10) {
+            if (isPositive && stringBuilder.toString().compareTo(String.valueOf(Integer.MAX_VALUE)) >= 0) {
+                return Integer.MAX_VALUE;
+            } else if (!isPositive && stringBuilder.toString().compareTo(String.valueOf(Integer.MIN_VALUE).substring(1)) >= 0) {
+                return Integer.MIN_VALUE;
+            }
+        }
+        return isPositive ? Integer.parseInt(stringBuilder.toString()) : -Integer.parseInt(stringBuilder.toString());
     }
 
     /**

@@ -25,8 +25,7 @@ class SolutionTest {
 
     @Test
     void myAtoi() {
-        System.out.println(Integer.MAX_VALUE);
-        System.out.println(Integer.MIN_VALUE);
+        System.out.println(solution.myAtoi("-2147483648"));
     }
 
     @Test
