@@ -9,6 +9,56 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 1654. 到家的最少跳跃次数
+     * todo 修改逻辑bug，不能无限向前
+     *
+     * @param forbidden
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
+    public int minimumJumps(int[] forbidden, int a, int b, int x) {
+        Set<Integer> forbiddenSet = new HashSet<>();
+        for (int j : forbidden) {
+            forbiddenSet.add(j);
+        }
+        if (forbiddenSet.contains(x)) {
+            return -1;
+        }
+        Set<Integer> stepedSet = new HashSet<>();
+        stepedSet.add(0);
+        return minimumJumps(stepedSet, forbiddenSet, a, b, x, 0, false);
+    }
+
+    private int minimumJumps(Set<Integer> stepedSet, Set<Integer> forbiddenSet, int a, int b, int x, int start, boolean canBack) {
+        if (start == x) {
+            System.out.println("到达" + start + "，步数是：" + (stepedSet.size() - 1));
+            return stepedSet.size() - 1;
+        }
+        int backStep = 0;
+        int forwardStep = 0;
+        if ((a < b || start + a - b <= x) && !stepedSet.contains(start + a) && !forbiddenSet.contains(start + a)) {
+            stepedSet.add(start + a);
+            forwardStep = minimumJumps(stepedSet, forbiddenSet, a, b, x, start + a, true);
+            stepedSet.remove(start + a);
+        } else {
+            forwardStep = -1;
+        }
+        if (canBack && (start - b > 0) && !stepedSet.contains(start - b) && !forbiddenSet.contains(start - b)) {
+            stepedSet.add(start - b);
+            backStep = minimumJumps(stepedSet, forbiddenSet, a, b, x, start - b, false);
+            stepedSet.remove(start - b);
+        } else {
+            backStep = -1;
+        }
+        if (forwardStep == -1 || backStep == -1) {
+            return Math.max(forwardStep, backStep);
+        }
+        return Math.min(forwardStep, backStep);
+    }
+
+    /**
      * 8.字符串转换整数 (atoi)
      *
      * @param s
