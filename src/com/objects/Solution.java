@@ -10,59 +10,77 @@ public class Solution {
 
     /**
      * 1654. 到家的最少跳跃次数
-     * todo 修改逻辑bug，不能无限向前
+     * 1) 使用广度优先搜索
+     * 2) 哈希表记录已可到达的位置
+     * 3) 向右跳时有上限，a < b 时上限为 max(x, max(forbidden) + a + b)
      *
-     * @param forbidden
-     * @param a
-     * @param b
-     * @param x
-     * @return
+     * @param forbidden 禁止访问的数组
+     * @param a         向右一步的距离
+     * @param b         向左回跳一步的距离
+     * @param x         目标位置
+     * @return 最小步数
      */
     public int minimumJumps(int[] forbidden, int a, int b, int x) {
-        Set<Integer> forbiddenSet = new HashSet<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        int f = 0;
         for (int j : forbidden) {
-            forbiddenSet.add(j);
+            map.put(j, 0);
+            f = Math.max(f, j);
         }
-        if (forbiddenSet.contains(x)) {
-            return -1;
+        int res = 0;
+        map.put(0, 1); // value为1表示只能前进，value为2表示都可以，value为0表示不能到达
+        Deque<Integer> deque = new ArrayDeque<Integer>();
+        deque.add(0);
+        while (!deque.isEmpty()) {
+            // 把deque转化为数组
+            int[] array = new int[deque.size()];
+            int index = 0;
+            for (Integer integer : deque) {
+                array[index] = integer;
+                index++;
+            }
+            deque.clear();
+            boolean isAdd = false;
+            for (int current : array) {
+                if (current == x) {
+                    return res;
+                }
+                if (map.get(current) == 0) {
+                    continue;
+                } else if (map.get(current) == 1) {
+                    int forward = current + a;
+                    if (!map.containsKey(forward) && ((a >= b && forward <= x + b) || (a < b && forward <= Math.max(x, f + a + b)))) {
+                        map.put(forward, 2);
+                        deque.add(forward);
+                        isAdd = true;
+                    }
+                } else if (map.get(current) == 2) {
+                    int forward = current + a;
+                    int back = current - b;
+                    if (back > 0 && !map.containsKey(back)) {
+                        map.put(back, 1);
+                        deque.add(back);
+                        isAdd = true;
+                    }
+                    if (!map.containsKey(forward) && ((a >= b && forward <= x + b) || (a < b && forward <= Math.max(f + a + b, x)))) {
+                        map.put(forward, 2);
+                        deque.add(forward);
+                        isAdd = true;
+                    }
+                }
+            }
+            if (isAdd) {
+                res++;
+            }
         }
-        Set<Integer> stepedSet = new HashSet<>();
-        stepedSet.add(0);
-        return minimumJumps(stepedSet, forbiddenSet, a, b, x, 0, false);
-    }
-
-    private int minimumJumps(Set<Integer> stepedSet, Set<Integer> forbiddenSet, int a, int b, int x, int start, boolean canBack) {
-        if (start == x) {
-            System.out.println("到达" + start + "，步数是：" + (stepedSet.size() - 1));
-            return stepedSet.size() - 1;
-        }
-        int backStep = 0;
-        int forwardStep = 0;
-        if ((a < b || start + a - b <= x) && !stepedSet.contains(start + a) && !forbiddenSet.contains(start + a)) {
-            stepedSet.add(start + a);
-            forwardStep = minimumJumps(stepedSet, forbiddenSet, a, b, x, start + a, true);
-            stepedSet.remove(start + a);
-        } else {
-            forwardStep = -1;
-        }
-        if (canBack && (start - b > 0) && !stepedSet.contains(start - b) && !forbiddenSet.contains(start - b)) {
-            stepedSet.add(start - b);
-            backStep = minimumJumps(stepedSet, forbiddenSet, a, b, x, start - b, false);
-            stepedSet.remove(start - b);
-        } else {
-            backStep = -1;
-        }
-        if (forwardStep == -1 || backStep == -1) {
-            return Math.max(forwardStep, backStep);
-        }
-        return Math.min(forwardStep, backStep);
+        return -1;
     }
 
     /**
      * 8.字符串转换整数 (atoi)
      *
-     * @param s
-     * @return
+     * @param s 字符串
+     * @return 整数
      */
     public int myAtoi(String s) {
         String str = s.trim();
