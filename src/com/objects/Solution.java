@@ -9,7 +9,34 @@ import java.util.*;
 public class Solution {
 
     /**
-     * 1654. 到家的最少跳跃次数
+     * 2511. 最多可以摧毁的敌人城堡数目 (easy)
+     *
+     * @param forts 城堡
+     * @return 最多可以摧毁的敌人城堡数目
+     */
+    public int captureForts(int[] forts) {
+        int res = 0;
+        int start = 0;
+        int index = 0;
+        while (index < forts.length) {
+            System.out.println("start = " + start);
+            if (forts[index] == 0) {
+                if (start == index) {
+                    start++;
+                }
+            } else {
+                if (forts[index] + forts[start] == 0) {
+                    res = Math.max(res, index - start - 1);
+                }
+                start = index;
+            }
+            index++;
+        }
+        return res;
+    }
+
+    /**
+     * 1654. 到家的最少跳跃次数 (medium)
      * 1) 使用广度优先搜索
      * 2) 哈希表记录已可到达的位置
      * 3) 向右跳时有上限，a < b 时上限为 max(x, max(forbidden) + a + b)

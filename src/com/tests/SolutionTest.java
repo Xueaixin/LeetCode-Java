@@ -50,6 +50,12 @@ class SolutionTest {
     }
 
     @Test
+    void captureForts() {
+        int[] forts = new int[]{1, 0, 0, -1, 0, 0, 0, 0, 1};
+        System.out.println(solution.captureForts(forts));
+    }
+
+    @Test
     void minimumJumps() {
 //        int[] forbidden = new int[]{14, 4, 18, 1, 15};
 //        int[] forbidden = new int[]{8, 3, 16, 6, 12, 20};
