@@ -9,6 +9,31 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 1921. 消灭怪物的最大数量 (medium)
+     *
+     * @param dist
+     * @param speed
+     * @return
+     */
+    public int eliminateMaximum(int[] dist, int[] speed) {
+        int n = dist.length;
+        double[] step = new double[n];
+        for (int i = 0; i < n; i++) {
+            step[i] = (double) dist[i] / speed[i];
+        }
+        Arrays.sort(step);
+        int res = 0;
+        for (double item : step) {
+            if (item <= res) {
+                break;
+            }
+            res++;
+        }
+        System.out.println(Arrays.toString(step));
+        return res;
+    }
+
+    /**
      * 2511. 最多可以摧毁的敌人城堡数目 (easy)
      *
      * @param forts 城堡

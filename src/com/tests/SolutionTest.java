@@ -50,6 +50,13 @@ class SolutionTest {
     }
 
     @Test
+    void eliminateMaximum() {
+        int[] dist = new int[]{3, 2, 4};
+        int[] speed = new int[]{5, 3, 2};
+        System.out.println(solution.eliminateMaximum(dist, speed));
+    }
+
+    @Test
     void captureForts() {
         int[] forts = new int[]{1, 0, 0, -1, 0, 0, 0, 0, 1};
         System.out.println(solution.captureForts(forts));
