@@ -9,6 +9,38 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 1901. 寻找峰值 II (medium)
+     * fixme:需要重写，自我理解
+     */
+    public int[] findPeakGrid(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+        int start = 0;
+        int end = m - 1;
+        while (start <= end) {
+            int max = -1;
+            int i = (start + end) / 2;
+            int j = -1;
+            for (int k = 0; k < n; k++) {
+                if (mat[i][k] > max) {
+                    j = k;
+                    max = mat[i][k];
+                }
+            }
+            if (i >= 1 && mat[i][j] < mat[i - 1][j]) {
+                end = i - 1;
+                continue;
+            }
+            if (i <= m - 2 && mat[i][j] < mat[i + 1][j]) {
+                start = i + 1;
+                continue;
+            }
+            return new int[]{i, j};
+        }
+        return null;
+    }
+
+    /**
      * 1921. 消灭怪物的最大数量 (medium)
      *
      * @param dist

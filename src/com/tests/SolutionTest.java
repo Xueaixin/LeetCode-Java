@@ -50,6 +50,13 @@ class SolutionTest {
     }
 
     @Test
+    void findPeakGrid() {
+//        int[][] mat = {{1, 4}, {3, 2}};
+        int[][] mat = {{10, 20, 15}, {21, 30, 14}, {7, 16, 32}};
+        System.out.println("solution.findPeakGrid() = " + Arrays.toString(solution.findPeakGrid(mat)));
+    }
+
+    @Test
     void eliminateMaximum() {
         int[] dist = new int[]{3, 2, 4};
         int[] speed = new int[]{5, 3, 2};
