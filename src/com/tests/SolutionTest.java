@@ -50,6 +50,11 @@ class SolutionTest {
     }
 
     @Test
+    void isPalindrome() {
+        System.out.println(solution.isPalindrome(121));
+    }
+
+    @Test
     void findPeakGrid() {
 //        int[][] mat = {{1, 4}, {3, 2}};
         int[][] mat = {{10, 20, 15}, {21, 30, 14}, {7, 16, 32}};

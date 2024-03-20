@@ -8,6 +8,24 @@ import java.util.*;
 
 public class Solution {
 
+
+    /**
+     * 9.回文数 (easy)
+     */
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        String s = String.valueOf(x);
+        int len = s.length();
+        for (int i = 0; i < (len + 1) / 2; i++) {
+            if (s.charAt(i) != s.charAt(len - 1 - i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * 1901. 寻找峰值 II (medium)
      * fixme:需要重写，自我理解
