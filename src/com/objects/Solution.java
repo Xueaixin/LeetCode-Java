@@ -10,6 +10,38 @@ public class Solution {
 
 
     /**
+     * 1969. 数组元素的最小非零乘积 (medium)
+     */
+    public int minNonZeroProduct(int p) {
+        if (p == 1) {
+            return 1;
+        }
+        long mod = 1000000007;
+        long result;
+        long max = (1L << p) - 1;
+        result = fastPow((max - 1) % mod, max / 2, mod);
+        result = (result * (max % mod)) % mod;
+        return (int) result;
+    }
+
+    public long fastPow(long x, long n, long mod) {
+        // 1. 结果初始化为1（任何数的0次幂都是1，也是乘法的初始值）
+        long res = 1;
+        // 2. 循环拆解指数n，直到n为0
+        for (; n != 0; n >>= 1) {
+            // 3. 判断n的二进制最后一位是否为1（即n是否为奇数）
+            if ((n & 1) != 0) {
+                // 若是奇数，将当前底数乘到结果中，同时取模防止溢出
+                res = res * x % mod;
+            }
+            // 4. 底数平方（对应指数折半），同样取模
+            x = x * x % mod;
+        }
+        // 5. 返回最终结果
+        return res;
+    }
+
+    /**
      * 9.回文数 (easy)
      */
     public boolean isPalindrome(int x) {

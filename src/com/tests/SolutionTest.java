@@ -50,6 +50,16 @@ class SolutionTest {
     }
 
     @Test
+    void test() {
+    }
+
+    @Test
+    void minNonZeroProduct() {
+        System.out.println(solution.minNonZeroProduct(60));
+//        System.out.println(solution.minNonZeroProduct(4));
+    }
+
+    @Test
     void isPalindrome() {
         System.out.println(solution.isPalindrome(121));
     }
