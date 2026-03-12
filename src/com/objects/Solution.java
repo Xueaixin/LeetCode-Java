@@ -8,6 +8,45 @@ import java.util.*;
 
 public class Solution {
 
+    /**
+     * 17. 电话号码的字母组合 (medium)
+     */
+    public List<String> letterCombinations(String digits) {
+        phoneMap = new HashMap<>();
+        initMapping();
+        List<String> result = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder();
+        letterCombinations(digits, 0, result, stringBuilder);
+        return result;
+    }
+
+    private Map<Character, String> phoneMap;
+
+    private void initMapping() {
+        phoneMap.put('2', "abc");
+        phoneMap.put('3', "def");
+        phoneMap.put('4', "ghi");
+        phoneMap.put('5', "jkl");
+        phoneMap.put('6', "mno");
+        phoneMap.put('7', "pqrs");
+        phoneMap.put('8', "tuv");
+        phoneMap.put('9', "wxyz");
+    }
+
+    void letterCombinations(String digits, int n, List<String> result, StringBuilder stringBuilder) {
+
+        if (n >= digits.length()) {
+            result.add(stringBuilder.toString());
+            return;
+        }
+        char num = digits.charAt(n);
+        String s = phoneMap.get(num);
+        for (int i = 0; i < s.length(); i++) {
+            stringBuilder.append(s.charAt(i));
+            letterCombinations(digits, n + 1, result, stringBuilder);
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        }
+    }
 
     /**
      * 1969. 数组元素的最小非零乘积 (medium)

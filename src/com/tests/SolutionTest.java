@@ -54,6 +54,11 @@ class SolutionTest {
     }
 
     @Test
+    void letterCombinations() {
+        System.out.println(solution.letterCombinations("23"));
+    }
+
+    @Test
     void minNonZeroProduct() {
         System.out.println(solution.minNonZeroProduct(60));
 //        System.out.println(solution.minNonZeroProduct(4));
