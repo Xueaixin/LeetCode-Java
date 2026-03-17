@@ -10,11 +10,45 @@ public class Solution {
 
     /**
      * 12. 整数转罗马数字 (medium)
-     * TODO
      */
     public String intToRoman(int num) {
-        return "";
+        Map<Integer, Character> numberMap = new HashMap<>();
+        numberMap.put(1, 'I');
+        numberMap.put(5, 'V');
+        numberMap.put(10, 'X');
+        numberMap.put(50, 'L');
+        numberMap.put(100, 'C');
+        numberMap.put(500, 'D');
+        numberMap.put(1000, 'M');
+        Stack<Integer> stack = new Stack<>();
+        while (num > 0) {
+            stack.push(num % 10);
+            num /= 10;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        while (!stack.isEmpty()) {
+            int number = stack.pop();
+            int k = (int) Math.pow(10, stack.size());
+            if (number == 0) {
+                continue;
+            } else if (number < 4) {
+                for (int j = 0; j < number; j++) {
+                    stringBuilder.append(numberMap.get(k));
+                }
+            } else if (number == 4) {
+                stringBuilder.append(numberMap.get(k)).append(numberMap.get(k * 5));
+            } else if (number == 9) {
+                stringBuilder.append(numberMap.get(k)).append(numberMap.get(k * 10));
+            } else {
+                stringBuilder.append(numberMap.get(k * 5));
+                for (int j = 5; j < number; j++) {
+                    stringBuilder.append(numberMap.get(k));
+                }
+            }
+        }
+        return stringBuilder.toString();
     }
+
 
     /**
      * 17. 电话号码的字母组合 (medium)

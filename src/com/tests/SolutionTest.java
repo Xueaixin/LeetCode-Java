@@ -54,6 +54,11 @@ class SolutionTest {
     }
 
     @Test
+    void intToRoman() {
+        System.out.println(solution.intToRoman(3749));
+    }
+
+    @Test
     void letterCombinations() {
         System.out.println(solution.letterCombinations("23"));
     }
