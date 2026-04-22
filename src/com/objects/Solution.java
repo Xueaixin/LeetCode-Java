@@ -9,6 +9,45 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 1727. 重新排列后的最大子矩阵(medium)
+     */
+    public int largestSubmatrix(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0) {
+                    dp[i][j] = matrix[i][j];
+                    continue;
+                }
+                if (matrix[i][j] == 0) {
+                    dp[i][j] = 0;
+                } else {
+                    dp[i][j] = dp[i - 1][j] + 1;
+                }
+            }
+        }
+        int result = 0;
+        for (int i = 0; i < m; i++) {
+            int[] arr = dp[i];
+            // 将arr倒序排列
+            Arrays.sort(arr);
+            int rows = 0;
+            for (int j = n - 1; j >= 0; j--) {
+                if (arr[j] == 0) {
+                    break;
+                }
+                if (arr[j] > 0) {
+                    rows++;
+                    result = Math.max(result, rows * arr[j]);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * 12. 整数转罗马数字 (medium)
      */
     public String intToRoman(int num) {
