@@ -9,6 +9,43 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 36. 有效的数独(medium)
+     */
+    public boolean isValidSudoku(char[][] board) {
+        Set<Character> rowSet = new HashSet<>();
+        Set<Character> colSet = new HashSet<>();
+        for (int i = 0; i < 9; i++) {
+            rowSet.clear();
+            colSet.clear();
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] != '.' && rowSet.contains(board[i][j])) {
+                    return false;
+                }
+                if (board[j][i] != '.' && colSet.contains(board[j][i])) {
+                    return false;
+                }
+                rowSet.add(board[i][j]);
+                colSet.add(board[j][i]);
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                rowSet.clear();
+                for (int k = 3 * i; k < 3 * i + 3; k++) {
+                    for (int l = 3 * j; l < 3 * j + 3; l++) {
+                        if (board[k][l] != '.' && rowSet.contains(board[k][l])) {
+                            return false;
+                        }
+                        rowSet.add(board[k][l]);
+                    }
+                }
+
+            }
+        }
+        return true;
+    }
+
+    /**
      * 1727. 重新排列后的最大子矩阵(medium)
      */
     public int largestSubmatrix(int[][] matrix) {
