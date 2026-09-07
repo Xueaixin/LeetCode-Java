@@ -16,14 +16,15 @@ public class Solution {
             return 0;
         }
         int result = 0;
+        int len = 0;
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (map.containsKey(c)) {
-                result = Math.max(i - map.get(c), result);
-            } else {
-                result++;
+                len = 0;
             }
+            len++;
+            result = Math.max(len, result);
             map.put(c, i);
         }
         return result;

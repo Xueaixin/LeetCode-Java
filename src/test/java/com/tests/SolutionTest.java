@@ -55,8 +55,8 @@ class SolutionTest {
 
     @Test
     void lengthOfLongestSubstring() {
-        System.out.println(solution.lengthOfLongestSubstring("abcabcbb"));
-        System.out.println(solution.lengthOfLongestSubstring("bbbbb"));
+//        System.out.println(solution.lengthOfLongestSubstring("abcabcbb"));
+//        System.out.println(solution.lengthOfLongestSubstring("bbbbb"));
         System.out.println(solution.lengthOfLongestSubstring("pwwkew"));
     }
 
