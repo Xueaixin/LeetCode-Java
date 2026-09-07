@@ -9,6 +9,23 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 35. 搜索插入位置
+     */
+    public int searchInsert(int[] nums, int target) {
+        if (target <= nums[0]) {
+            return 0;
+        }
+        for (int i = 1 ; i < nums.length; i++) {
+            if (target == nums[i]) {
+                return i;
+            } else if (target < nums[i] && target > nums[i - 1]) {
+                return i;
+            }
+        }
+        return nums.length;
+    }
+
+    /**
      * 27. 移除元素
      */
     public int removeElement(int[] nums, int val) {
