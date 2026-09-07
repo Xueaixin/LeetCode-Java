@@ -9,6 +9,27 @@ import java.util.*;
 public class Solution {
 
     /**
+     * 3. 无重复字符的最长子串
+     */
+    public int lengthOfLongestSubstring(String s) {
+        if (s.isEmpty()) {
+            return 0;
+        }
+        int result = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                result = Math.max(i - map.get(c), result);
+            } else {
+                result++;
+            }
+            map.put(c, i);
+        }
+        return result;
+    }
+
+    /**
      * 36. 有效的数独(medium)
      */
     public boolean isValidSudoku(char[][] board) {
