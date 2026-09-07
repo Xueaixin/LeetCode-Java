@@ -54,6 +54,11 @@ class SolutionTest {
     }
 
     @Test
+    void removeElement() {
+        System.out.println(solution.removeElement(new int[]{3, 2, 2, 3}, 3));
+    }
+
+    @Test
     void lengthOfLongestSubstring() {
         System.out.println(solution.lengthOfLongestSubstring("abcabcbb"));
         System.out.println(solution.lengthOfLongestSubstring("abba"));
